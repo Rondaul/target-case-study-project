@@ -6,4 +6,6 @@
 
   <color name="gray_color">#666666</color>
   <color name="red_color">#cc0000</color>
+  <color name="divider_color">#D6D6D6</color>
+  <color name="secondary_text_color">#333333</color>
 </resources>
