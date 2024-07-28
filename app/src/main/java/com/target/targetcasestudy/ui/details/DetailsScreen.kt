@@ -1,6 +1,7 @@
 package com.target.targetcasestudy.ui.details
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,6 +32,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
 import com.target.targetcasestudy.R
 import com.target.targetcasestudy.ui.home.DealAmountAndStatus
 import com.target.targetcasestudy.ui.theme.Red
@@ -38,40 +40,54 @@ import com.target.targetcasestudy.ui.theme.Red
 @Composable
 fun DetailsScreen(id: Int?, modifier: Modifier = Modifier) {
     val scrollState = rememberScrollState()
-    Column(modifier = modifier
-        .verticalScroll(scrollState)
-        .padding(bottom = 24.dp)) {
-        Surface(shadowElevation = 2.dp) {
-            Column(modifier = modifier
-                .fillMaxWidth()
-                .padding(16.dp)) {
-                DealImageDetail(modifier = modifier)
-                Spacer(modifier = modifier.height(16.dp))
-                Text(
-                    text = "Women's Long Sleeve Denim Jacket - Universal Thread™",
-                    color = Color.Black,
-                    fontSize = 18.sp
-                )
-                Spacer(modifier = modifier.height(24.dp))
-                DealAmountAndStatus(modifier = modifier)
+    ConstraintLayout(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(colorResource(id = R.color.details_background_color))
+    ) {
+        val (detailContent, addCardButton) = createRefs()
+        Column(modifier = Modifier
+            .constrainAs(detailContent) {
+                bottom.linkTo(addCardButton.top)
             }
+            .verticalScroll(scrollState)
+            .padding(bottom = 2.dp)) {
+            Surface(shadowElevation = 2.dp) {
+                Column(modifier = modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)) {
+                    DealImageDetail(modifier = modifier)
+                    Spacer(modifier = modifier.height(16.dp))
+                    Text(
+                        text = "Women's Long Sleeve Denim Jacket - Universal Thread™",
+                        color = Color.Black,
+                        fontSize = 18.sp
+                    )
+                    Spacer(modifier = modifier.height(24.dp))
+                    DealAmountAndStatus(modifier = modifier)
+                }
+            }
+            Spacer(modifier = modifier.height(8.dp))
+            ProductDetails()
         }
-        Spacer(modifier = modifier.height(8.dp))
-        ProductDetails()
+        BottomAddToCardButton(
+            modifier = Modifier.constrainAs(addCardButton) {
+                bottom.linkTo(parent.bottom)
+            }
+        )
     }
-    BottomAddToCardButton()
 }
 
 @Composable
-fun BottomAddToCardButton() {
+fun BottomAddToCardButton(modifier: Modifier = Modifier) {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxWidth()
     ) {
         Card(
-            shape = RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp),
+            shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 16.dp),
             colors = CardDefaults.cardColors(containerColor = Color.White),
-            modifier = Modifier
+            modifier = modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
         ) {
@@ -79,7 +95,7 @@ fun BottomAddToCardButton() {
                 onClick = { /* Handle button click */ },
                 shape = RoundedCornerShape(4.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = Red),
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             ) {
@@ -114,9 +130,9 @@ fun ProductDetails(modifier: Modifier = Modifier) {
         shadowElevation = 4.dp,
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 16.dp, bottom = 16.dp),
+            .padding(top = 16.dp),
     ) {
-        Column(modifier = modifier.padding(16.dp)) {
+        Column(modifier = modifier.padding(8.dp)) {
             Text(
                 text = "Product Details",
                 fontSize = 18.sp,
@@ -131,7 +147,6 @@ fun ProductDetails(modifier: Modifier = Modifier) {
                 color = colorResource(id = R.color.lighter_gray),
                 fontSize = 16.sp
             )
-            Spacer(modifier = modifier.height(16.dp))
         }
     }
 }
