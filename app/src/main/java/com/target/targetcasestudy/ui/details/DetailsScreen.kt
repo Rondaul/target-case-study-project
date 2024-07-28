@@ -49,6 +49,7 @@ fun DetailsScreen(id: Int?, modifier: Modifier = Modifier) {
         Column(modifier = Modifier
             .constrainAs(detailContent) {
                 bottom.linkTo(addCardButton.top)
+                top.linkTo(parent.top)
             }
             .verticalScroll(scrollState)
             .padding(bottom = 2.dp)) {

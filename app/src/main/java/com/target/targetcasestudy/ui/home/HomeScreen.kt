@@ -24,6 +24,8 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.target.targetcasestudy.R
@@ -129,4 +131,10 @@ fun DealAmountAndStatus(modifier: Modifier) {
         )
     }
     Text(text = "Online", color = Gray, fontSize = 12.sp)
+}
+
+@Preview(showBackground = true, showSystemUi = true, device = Devices.PIXEL)
+@Composable
+fun HomePreview() {
+    HomeScreen({})
 }
