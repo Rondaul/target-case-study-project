@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.target.targetcasestudy.R
-import com.target.targetcasestudy.data.StaticData
 
 class DealItemAdapter : RecyclerView.Adapter<DealItemViewHolder>() {
 
