@@ -132,7 +132,7 @@ fun ProductDetails(modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .padding(top = 16.dp),
     ) {
-        Column(modifier = modifier.padding(8.dp)) {
+        Column(modifier = modifier.padding(16.dp)) {
             Text(
                 text = "Product Details",
                 fontSize = 18.sp,
@@ -143,7 +143,7 @@ fun ProductDetails(modifier: Modifier = Modifier) {
             Text(
                 text = "Adult oversized crewneck tee made from 100% cotton for soft feel and comfy wear. Tailored in an oversized silhouette with a crewneck design with short sleeves and drop shoulders. At-hip length for wearing tucked in or out.\n" +
                         "\n" +
-                        "Wild Fable™: A look for every story.\n",
+                        "Wild Fable™: A look for every story.",
                 color = colorResource(id = R.color.lighter_gray),
                 fontSize = 16.sp
             )
