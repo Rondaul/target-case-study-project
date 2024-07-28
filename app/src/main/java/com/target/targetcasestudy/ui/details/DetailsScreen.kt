@@ -41,7 +41,7 @@ fun DetailsScreen(id: Int?, modifier: Modifier = Modifier) {
     Column(modifier = modifier
         .verticalScroll(scrollState)
         .padding(bottom = 24.dp)) {
-        Surface(shadowElevation = 4.dp) {
+        Surface(shadowElevation = 2.dp) {
             Column(modifier = modifier
                 .fillMaxWidth()
                 .padding(16.dp)) {
@@ -50,7 +50,7 @@ fun DetailsScreen(id: Int?, modifier: Modifier = Modifier) {
                 Text(
                     text = "Women's Long Sleeve Denim Jacket - Universal Thread™",
                     color = Color.Black,
-                    fontSize = 14.sp
+                    fontSize = 18.sp
                 )
                 Spacer(modifier = modifier.height(24.dp))
                 DealAmountAndStatus(modifier = modifier)
