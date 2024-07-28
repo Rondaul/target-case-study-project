@@ -1,17 +1,25 @@
 package com.target.targetcasestudy
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import com.target.targetcasestudy.ui.DealListFragment
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Devices
+import androidx.compose.ui.tooling.preview.Preview
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContent {
+            MainApp()
+        }
+    }
+}
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_main)
-
-    supportFragmentManager.beginTransaction()
-      .replace(R.id.container, DealListFragment())
-      .commit()
-  }
+@Preview(showBackground = true, showSystemUi = true, device = Devices.PIXEL)
+@Composable
+fun AppPreview() {
+    MainApp()
 }
