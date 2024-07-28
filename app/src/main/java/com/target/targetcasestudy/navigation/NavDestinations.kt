@@ -1,5 +1,8 @@
 package com.target.targetcasestudy.navigation
 
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+
 /**
  * This file holds all the routes of the app along with the necessary data required during
  * navigation
@@ -33,6 +36,11 @@ data object DetailsRoute: NavDestinations {
     override val title = "Details"
     override val route = "details"
     override val navigateUp = true
+    const val idArg = "id_arg"
+    val routeWithArgs = "$route/{$idArg}"
+    val arguments = listOf(
+        navArgument(idArg) { type = NavType.IntType }
+    )
 }
 
 /**

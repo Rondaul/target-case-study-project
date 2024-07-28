@@ -1,6 +1,7 @@
 package com.target.targetcasestudy.ui.home
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,10 +35,13 @@ import com.target.targetcasestudy.ui.theme.Red
  * Composable function for Home Screen. Shows List of deals vertically.
  */
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(onDealItemClick: () -> Unit, modifier: Modifier = Modifier) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(10) {
-            DealItem(modifier = modifier)
+            DealItem(
+                onDealItemClick = onDealItemClick,
+                modifier = modifier
+            )
             HorizontalDivider(
                 modifier = Modifier.padding(start = 16.dp),
                 color = colorResource(id = R.color.divider_color)
@@ -50,11 +54,12 @@ fun HomeScreen(modifier: Modifier = Modifier) {
  * Composable function for each deal item shown in the home screen list.
  */
 @Composable
-fun DealItem(modifier: Modifier = Modifier) {
+fun DealItem(onDealItemClick: () -> Unit, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
+            .clickable { onDealItemClick() }
     ) {
         DealImage(modifier = modifier)
         Spacer(modifier = Modifier.width(12.dp))
