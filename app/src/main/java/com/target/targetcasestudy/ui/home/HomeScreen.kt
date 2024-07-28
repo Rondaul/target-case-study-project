@@ -87,21 +87,7 @@ fun DealImage(modifier: Modifier = Modifier) {
 @Composable
 fun DealInfo(modifier: Modifier = Modifier) {
     Column(modifier = modifier) {
-        Row {
-            Text(
-                text = "$34.99",
-                color = Red,
-                fontWeight = FontWeight.Bold,
-                fontSize = 21.sp,
-                modifier = modifier.padding(end = 4.dp)
-            )
-            Text(
-                text = "reg. $34.99",
-                color = colorResource(id = R.color.secondary_text_color),
-                fontSize = 12.sp
-            )
-        }
-        Text(text = "Online", color = Gray, fontSize = 12.sp)
+        DealAmountAndStatus(modifier)
         Spacer(modifier = modifier.height(8.dp))
         Text(
             text = "Women's Long Sleeve Denim Jacket - Universal Thread™",
@@ -124,4 +110,23 @@ fun DealInfo(modifier: Modifier = Modifier) {
 
         }
     }
+}
+
+@Composable
+fun DealAmountAndStatus(modifier: Modifier) {
+    Row {
+        Text(
+            text = "$34.99",
+            color = Red,
+            fontWeight = FontWeight.Bold,
+            fontSize = 21.sp,
+            modifier = modifier.padding(end = 4.dp)
+        )
+        Text(
+            text = "reg. $34.99",
+            color = colorResource(id = R.color.secondary_text_color),
+            fontSize = 12.sp
+        )
+    }
+    Text(text = "Online", color = Gray, fontSize = 12.sp)
 }

@@ -62,7 +62,7 @@ fun MainNavHost(
             }
             ) { navBackStackEntry ->
             val id = navBackStackEntry.arguments?.getInt(DetailsRoute.idArg)
-            DetailsScreen(id = id, modifier = modifier)
+            DetailsScreen(id = id)
         }
     }
 }
