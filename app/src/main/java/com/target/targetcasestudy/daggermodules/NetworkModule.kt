@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -51,4 +52,8 @@ object NetworkModule {
     @Provides
     fun providesDealApi(retrofit: Retrofit): DealApi =
         retrofit.create(DealApi::class.java)
+
+    @Singleton
+    @Provides
+    fun providesCoroutinesDispatchers() = Dispatchers.IO
 }

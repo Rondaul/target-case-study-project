@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.target.targetcasestudy.R
-import com.target.targetcasestudy.ui.home.DealAmountAndStatus
 import com.target.targetcasestudy.ui.theme.Red
 
 @Composable
@@ -66,7 +65,12 @@ fun DetailsScreen(id: Int?, modifier: Modifier = Modifier) {
                         fontSize = 18.sp
                     )
                     Spacer(modifier = modifier.height(24.dp))
-                    DealAmountAndStatus(modifier = modifier)
+//                    DealAmountAndStatus(
+//                        salePrice = deal.salePrice.displayString,
+//                        regularPrice = deal.regularPrice.displayString,
+//                        status = deal.fulfillment,
+//                        modifier = modifier
+//                    )
                 }
             }
             Spacer(modifier = modifier.height(8.dp))

@@ -19,9 +19,9 @@ data class Deal(
     @SerializedName("image_url")
     val imageUrl: String,
     @SerializedName("regular_price")
-    val priceItem: PriceItem,
+    val regularPrice: PriceItem,
     @SerializedName("sale_price")
-    val salePrice: PriceItem,
+    val salePrice: PriceItem?,
     @SerializedName("title")
     val title: String
 )
