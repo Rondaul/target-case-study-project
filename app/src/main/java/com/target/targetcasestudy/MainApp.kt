@@ -1,5 +1,6 @@
 package com.target.targetcasestudy
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -65,10 +66,11 @@ fun MainApp() {
                 },
                 modifier = Modifier.fillMaxSize()
             ) { innerPadding ->
-                MainNavHost(
-                    navHostController = navController,
-                    modifier = Modifier.padding(innerPadding)
-                )
+                Box(modifier = Modifier.padding(innerPadding)) {
+                    MainNavHost(
+                        navHostController = navController
+                    )
+                }
             }
         }
     }

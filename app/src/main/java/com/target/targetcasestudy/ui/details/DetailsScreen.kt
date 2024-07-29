@@ -43,6 +43,7 @@ fun DetailsScreen(id: Int?, modifier: Modifier = Modifier) {
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
+            .padding(top = 38.dp)
             .background(colorResource(id = R.color.details_background_color))
     ) {
         val (detailContent, addCardButton) = createRefs()

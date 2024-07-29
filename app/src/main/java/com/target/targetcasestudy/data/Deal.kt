@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 /**
  * Data class representing a single product. Contains all the necessary info regarding the product.
  */
-data class Product(
+data class Deal(
     @SerializedName("aisle")
     val aisle: String,
     @SerializedName("availability")
