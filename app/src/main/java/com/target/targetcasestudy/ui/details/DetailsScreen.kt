@@ -47,8 +47,8 @@ import com.target.targetcasestudy.R
 import com.target.targetcasestudy.data.Deal
 import com.target.targetcasestudy.ui.home.DealAmountAndStatus
 import com.target.targetcasestudy.ui.theme.Red
-import com.target.targetcasestudy.util.CircularProgress
-import com.target.targetcasestudy.util.rememberFlowWithLifecycle
+import com.target.targetcasestudy.ui.util.CircularProgress
+import com.target.targetcasestudy.ui.util.rememberFlowWithLifecycle
 
 private const val TAG = "Details Screen"
 
@@ -82,6 +82,7 @@ fun DetailsScreen(id: Int?,
             }
         }
     }
+
     if (showProgress) {
         CircularProgress()
     } else {

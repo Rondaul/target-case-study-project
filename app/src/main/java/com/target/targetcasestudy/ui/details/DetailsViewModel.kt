@@ -14,7 +14,7 @@ import javax.inject.Inject
 class DetailsViewModel @Inject constructor(
     private val dealRepository: DealRepository,
     dispatcher: CoroutineDispatcher
-): BaseViewModel<DetailsUiState, DetailsEvent, DetailsEffect>(DetailsUiState(), dispatcher) {
+): BaseViewModel<DetailsUiState, DetailsEvent, DetailsEffect>(DetailsUiState.initial(), dispatcher) {
     override fun processEvent(event: DetailsEvent) = when(event) {
         is DetailsEvent.RetrieveDeal -> retrieveDeal(event.dealId)
     }

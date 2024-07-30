@@ -14,7 +14,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val dealRepository: DealRepository,
     dispatcher: CoroutineDispatcher
-): BaseViewModel<HomeUiState, HomeEvent, HomeEffect>(HomeUiState(), dispatcher) {
+): BaseViewModel<HomeUiState, HomeEvent, HomeEffect>(HomeUiState.initial(), dispatcher) {
     override fun processEvent(event: HomeEvent) = when (event) {
         is HomeEvent.RetrieveDeals -> retrieveDeals()
     }

@@ -8,4 +8,7 @@ import javax.annotation.concurrent.Immutable
 data class HomeUiState(
     val deals: List<Deal> = listOf()
 ) : Reducer.ViewState {
+    companion object {
+        fun initial() = HomeUiState()
+    }
 }

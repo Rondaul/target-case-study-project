@@ -5,4 +5,9 @@ import com.target.targetcasestudy.ui.base.Reducer
 
 data class DetailsUiState(
     val deal: Deal? = null
-): Reducer.ViewState
+): Reducer.ViewState {
+
+    companion object {
+        fun initial() = DetailsUiState()
+    }
+}

@@ -33,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
@@ -41,8 +42,9 @@ import com.target.targetcasestudy.data.Deal
 import com.target.targetcasestudy.ui.theme.Gray
 import com.target.targetcasestudy.ui.theme.Green
 import com.target.targetcasestudy.ui.theme.Red
-import com.target.targetcasestudy.util.CircularProgress
-import com.target.targetcasestudy.util.rememberFlowWithLifecycle
+import com.target.targetcasestudy.ui.util.CircularProgress
+import com.target.targetcasestudy.ui.util.ComposableLifecycle
+import com.target.targetcasestudy.ui.util.rememberFlowWithLifecycle
 
 /**
  * Composable function for Home Screen. Shows List of deals vertically.
@@ -56,8 +58,12 @@ fun HomeScreen(
     val homeEffect = rememberFlowWithLifecycle(flow = homeViewModel.viewEffects)
     var showProgress by remember { mutableStateOf(false) }
 
+    ComposableLifecycle { source, event ->
+        if (event == Lifecycle.Event.ON_CREATE) {
+            homeViewModel.sendEvent(HomeEvent.RetrieveDeals)
+        }
+    }
     LaunchedEffect(Unit) {
-        homeViewModel.sendEvent(HomeEvent.RetrieveDeals)
         homeEffect.collect { effect ->
             when(effect) {
                 is HomeEffect.Loading -> {
@@ -72,6 +78,7 @@ fun HomeScreen(
             }
         }
     }
+
     if (showProgress) {
         CircularProgress()
     } else {
