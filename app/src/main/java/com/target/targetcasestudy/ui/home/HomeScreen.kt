@@ -17,6 +17,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -48,7 +49,8 @@ import com.target.targetcasestudy.ui.theme.Green
 import com.target.targetcasestudy.ui.theme.Red
 
 /**
- * Composable function for Home Screen. Shows List of deals vertically.
+ * Composable function for home screen. Show either loader, error or content ui based on states
+ * and effects data.
  */
 @Composable
 fun HomeScreen(
@@ -90,18 +92,30 @@ fun HomeScreen(
             homeViewModel.sendEvent(HomeEvent.RetrieveDeals)
         }
     } else {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(homeUiState.value.deals) { deal ->
-                DealItem(
-                    deal = deal,
-                    onDealItemClick = onDealItemClick,
-                    modifier = modifier
-                )
-                HorizontalDivider(
-                    modifier = Modifier.padding(start = 16.dp),
-                    color = colorResource(id = R.color.divider_color)
-                )
-            }
+        HomeContent(homeUiState, onDealItemClick, modifier)
+    }
+}
+
+/**
+ * Composable function for home content. Show list of deals vertically
+ */
+@Composable
+fun HomeContent(
+    homeUiState: State<HomeUiState>,
+    onDealItemClick: (dealId: Int) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
+        items(homeUiState.value.deals) { deal ->
+            DealItem(
+                deal = deal,
+                onDealItemClick = onDealItemClick,
+                modifier = modifier
+            )
+            HorizontalDivider(
+                modifier = Modifier.padding(start = 16.dp),
+                color = colorResource(id = R.color.divider_color)
+            )
         }
     }
 }
@@ -174,6 +188,9 @@ fun DealInfo(deal: Deal, modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Composable function for showing Deal amount and fulfillment status
+ */
 @Composable
 fun DealAmountAndStatus(salePrice: String, regularPrice: String, status: String, modifier: Modifier) {
     Row {

@@ -4,6 +4,9 @@ import com.target.targetcasestudy.data.Deal
 import com.target.targetcasestudy.ui.base.Reducer
 import javax.annotation.concurrent.Immutable
 
+/**
+ * Data class for [HomeScreen] UI ViewState
+ */
 @Immutable
 data class HomeUiState(
     val deals: List<Deal> = listOf()

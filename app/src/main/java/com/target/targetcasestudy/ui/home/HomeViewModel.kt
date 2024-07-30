@@ -10,14 +10,27 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for [HomeScreen]
+ * @param dealRepository - repository for fetching deals
+ * @param dispatcher - [CoroutineDispatcher] to be used when performing api calls
+ */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val dealRepository: DealRepository,
     dispatcher: CoroutineDispatcher
 ): BaseViewModel<HomeUiState, HomeEvent, HomeEffect>(HomeUiState.initial(), dispatcher) {
+
+    /**
+     * Process event from [HomeScreen]
+     */
     override fun processEvent(event: HomeEvent) = when (event) {
         is HomeEvent.RetrieveDeals -> retrieveDeals()
     }
+
+    /**
+     * Method to get the list of deal from [dealRepository]
+     */
     private fun retrieveDeals()  {
         viewModelScope.launch(dispatcher) {
             sendEffect(HomeEffect.Loading)
@@ -32,6 +45,11 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Method to reduce the [apiResult] data to Pair of new [HomeUiState] and [HomeEffect]
+     * @param oldViewState - old viewState to be updated
+     * @param apiResult - result fetch from [dealRepository]
+     */
     private fun reduce(oldViewState: HomeUiState, apiResult: ApiResult<Products>): Pair<HomeUiState, HomeEffect?> {
         return when(apiResult) {
             is ApiResult.Success<Products> -> {

@@ -19,14 +19,7 @@ private val DarkColorScheme = darkColorScheme(
 private val LightColorScheme = lightColorScheme(
     primary = Red,
     secondary = DarkRed,
-    tertiary = Green,
-//    background = Red,
-//    surface = Red,
-//    onPrimary = Red,
-//    onSecondary = Red,
-//    onTertiary = Red,
-//    onBackground = Red,
-//    onSurface = Red,
+    tertiary = Green
 )
 
 @Composable
