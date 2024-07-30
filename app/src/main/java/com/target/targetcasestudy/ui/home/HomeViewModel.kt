@@ -22,13 +22,12 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch(dispatcher) {
             sendEffect(HomeEffect.Loading)
             val result = dealRepository.retrieveDeals()
-            result.collect { products ->
-                val (newState, effect) = reduce(viewState.value, products)
+            result.collect { apiResult ->
+                val (newState, effect) = reduce(viewState.value, apiResult)
                 updateViewState(newState)
                 if (effect != null) {
                     sendEffect(effect)
                 }
-
             }
         }
     }

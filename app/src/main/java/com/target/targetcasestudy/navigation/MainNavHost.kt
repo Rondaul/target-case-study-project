@@ -32,8 +32,8 @@ fun MainNavHost(
     ) {
         composable(route = HomeRoute.route) {
             HomeScreen(
-                onDealItemClick = {
-                    navHostController.navigateWithArgs(DetailsRoute.route, 1)
+                onDealItemClick = { dealId ->
+                    navHostController.navigateWithArgs(DetailsRoute.route, dealId)
                 }
             )
         }

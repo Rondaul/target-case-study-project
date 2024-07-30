@@ -49,7 +49,7 @@ import com.target.targetcasestudy.util.rememberFlowWithLifecycle
  */
 @Composable
 fun HomeScreen(
-    onDealItemClick: () -> Unit,
+    onDealItemClick: (dealId: Int) -> Unit,
     modifier: Modifier = Modifier,
     homeViewModel: HomeViewModel = hiltViewModel()) {
     val homeUiState = homeViewModel.viewState.collectAsStateWithLifecycle()
@@ -95,12 +95,12 @@ fun HomeScreen(
  * Composable function for each deal item shown in the home screen list.
  */
 @Composable
-fun DealItem(deal: Deal, onDealItemClick: () -> Unit, modifier: Modifier = Modifier) {
+fun DealItem(deal: Deal, onDealItemClick: (dealId: Int) -> Unit, modifier: Modifier = Modifier) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .clickable { onDealItemClick() }
+            .clickable { onDealItemClick(deal.id) }
     ) {
         DealImage(imageUrl = deal.imageUrl, modifier = modifier)
         Spacer(modifier = Modifier.width(12.dp))

@@ -4,7 +4,6 @@ import com.target.targetcasestudy.api.ApiResult
 import com.target.targetcasestudy.api.RemoteDealDataSource
 import com.target.targetcasestudy.data.Deal
 import com.target.targetcasestudy.data.Products
-import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
