@@ -39,12 +39,13 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.target.targetcasestudy.R
 import com.target.targetcasestudy.data.Deal
+import com.target.targetcasestudy.ui.common.CircularProgress
+import com.target.targetcasestudy.ui.common.ComposableLifecycle
+import com.target.targetcasestudy.ui.common.ErrorScreen
+import com.target.targetcasestudy.ui.common.rememberFlowWithLifecycle
 import com.target.targetcasestudy.ui.theme.Gray
 import com.target.targetcasestudy.ui.theme.Green
 import com.target.targetcasestudy.ui.theme.Red
-import com.target.targetcasestudy.ui.util.CircularProgress
-import com.target.targetcasestudy.ui.util.ComposableLifecycle
-import com.target.targetcasestudy.ui.util.rememberFlowWithLifecycle
 
 /**
  * Composable function for Home Screen. Shows List of deals vertically.
@@ -57,6 +58,7 @@ fun HomeScreen(
     val homeUiState = homeViewModel.viewState.collectAsStateWithLifecycle()
     val homeEffect = rememberFlowWithLifecycle(flow = homeViewModel.viewEffects)
     var showProgress by remember { mutableStateOf(false) }
+    var showErrorUI by remember { mutableStateOf(Pair("", false)) }
 
     ComposableLifecycle { source, event ->
         if (event == Lifecycle.Event.ON_CREATE) {
@@ -70,10 +72,12 @@ fun HomeScreen(
                     showProgress = true
                 }
                 is HomeEffect.Error -> {
-
+                    showProgress = false
+                    showErrorUI = Pair(effect.errorMsg, true)
                 }
                 HomeEffect.Success -> {
                     showProgress = false
+                    showErrorUI = Pair("", false)
                 }
             }
         }
@@ -81,6 +85,10 @@ fun HomeScreen(
 
     if (showProgress) {
         CircularProgress()
+    } else if(showErrorUI.second) {
+        ErrorScreen(errorMsg = showErrorUI.first) {
+            homeViewModel.sendEvent(HomeEvent.RetrieveDeals)
+        }
     } else {
         LazyColumn(modifier = Modifier.fillMaxSize()) {
             items(homeUiState.value.deals) { deal ->

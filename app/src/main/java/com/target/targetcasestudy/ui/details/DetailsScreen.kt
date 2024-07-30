@@ -40,15 +40,18 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.target.targetcasestudy.R
 import com.target.targetcasestudy.data.Deal
+import com.target.targetcasestudy.ui.common.CircularProgress
+import com.target.targetcasestudy.ui.common.ComposableLifecycle
+import com.target.targetcasestudy.ui.common.ErrorScreen
+import com.target.targetcasestudy.ui.common.rememberFlowWithLifecycle
 import com.target.targetcasestudy.ui.home.DealAmountAndStatus
 import com.target.targetcasestudy.ui.theme.Red
-import com.target.targetcasestudy.ui.util.CircularProgress
-import com.target.targetcasestudy.ui.util.rememberFlowWithLifecycle
 
 private const val TAG = "Details Screen"
 
@@ -62,22 +65,28 @@ fun DetailsScreen(id: Int?,
     var showProgress by remember { mutableStateOf(false) }
     var showErrorUI by remember { mutableStateOf(Pair("", false)) }
 
-    LaunchedEffect(Unit) {
-        if (id != null) {
-            detailsViewModel.sendEvent(DetailsEvent.RetrieveDeal(id))
-        } else {
-            Log.e(TAG, "Id cannot be null!")
+    ComposableLifecycle { source, event ->
+        if (event == Lifecycle.Event.ON_CREATE) {
+            if (id != null) {
+                detailsViewModel.sendEvent(DetailsEvent.RetrieveDeal(id))
+            } else {
+                Log.e(TAG, "Id cannot be null!")
+            }
         }
+    }
+
+    LaunchedEffect(Unit) {
         detailsEffect.collect { effect ->
             when(effect) {
                 is DetailsEffect.Loading -> {
                     showProgress = true
                 }
                 is DetailsEffect.Error -> {
-
+                    showErrorUI = Pair(effect.errorMsg, true)
                 }
                 DetailsEffect.Success -> {
                     showProgress = false
+                    showErrorUI = Pair("", false)
                 }
             }
         }
@@ -85,6 +94,14 @@ fun DetailsScreen(id: Int?,
 
     if (showProgress) {
         CircularProgress()
+    } else if (showErrorUI.second) {
+        ErrorScreen(errorMsg = showErrorUI.first) {
+            if (id != null) {
+                detailsViewModel.sendEvent(DetailsEvent.RetrieveDeal(id))
+            } else {
+                Log.e(TAG, "Id cannot be null!")
+            }
+        }
     } else {
         DetailsContent(
             deal = detailsUiState.value.deal,
