@@ -42,7 +42,7 @@ abstract class BaseViewModel<ViewState: Reducer.ViewState, ViewEvent: Reducer.Vi
         _viewEvents.emit(event)
     }
 
-    fun sendEffect(effect: ViewEffect) = viewModelScope.launch(dispatcher) {
+    protected fun sendEffect(effect: ViewEffect) = viewModelScope.launch(dispatcher) {
         _viewEffects.trySend(effect)
     }
 
