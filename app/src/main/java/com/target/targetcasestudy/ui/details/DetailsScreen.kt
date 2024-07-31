@@ -144,7 +144,10 @@ fun DetailsContent(
                         DealImageDetail(imageUrl = deal?.imageUrl, modifier = modifier)
                         Spacer(modifier = modifier.height(16.dp))
                         Text(
-                            text = deal?.title ?: "", color = Color.Black, fontSize = 18.sp
+                            text = deal?.title ?: "",
+                            color = Color.Black,
+                            fontSize = 18.sp,
+                            lineHeight = 24.sp
                         )
                         Spacer(modifier = modifier.height(24.dp))
                         DealAmountAndStatus(
@@ -233,7 +236,8 @@ fun ProductDetails(productDescription: String, modifier: Modifier = Modifier) {
             Text(
                 text = productDescription,
                 color = colorResource(id = R.color.lighter_gray),
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                lineHeight = 20.sp
             )
         }
     }

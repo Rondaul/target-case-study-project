@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -168,7 +169,8 @@ fun DealInfo(deal: Deal, modifier: Modifier = Modifier) {
         Text(
             text = deal.title,
             color = Color.Black,
-            fontSize = 14.sp
+            fontSize = 14.sp,
+            lineHeight = 20.sp
         )
         Spacer(modifier = modifier.height(8.dp))
         Row {
@@ -204,7 +206,8 @@ fun DealAmountAndStatus(salePrice: String, regularPrice: String, status: String,
         Text(
             text = "reg. $regularPrice",
             color = colorResource(id = R.color.secondary_text_color),
-            fontSize = 12.sp
+            fontSize = 12.sp,
+            modifier = modifier.offset(y = 2.dp)
         )
     }
     Text(text = status, color = Gray, fontSize = 12.sp)
