@@ -13,8 +13,7 @@ import javax.inject.Inject
 class DealRepositoryImpl @Inject constructor(
     private val remoteDealDataSource: RemoteDealDataSource,
     private val dispatcher: CoroutineDispatcher
-):
-    DealRepository {
+): DealRepository {
     override suspend fun retrieveDeals(): Flow<ApiResult<Products>> {
         return flow {
             val result = remoteDealDataSource.retrieveDeals()

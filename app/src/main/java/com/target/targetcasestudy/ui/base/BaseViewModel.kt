@@ -10,6 +10,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
+/**
+ * Base ViewModel for all viewmodel to extend from. Contains base setup for MVI architecture
+ */
 abstract class BaseViewModel<ViewState: Reducer.ViewState, ViewEvent: Reducer.ViewEvent,
         ViewEffect: Reducer.ViewEffect>(
     initialViewState: ViewState,
