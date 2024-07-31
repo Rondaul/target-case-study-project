@@ -2,6 +2,9 @@ package com.target.targetcasestudy
 
 import com.target.targetcasestudy.data.Deal
 import com.target.targetcasestudy.data.PriceItem
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody.Companion.toResponseBody
+import retrofit2.Response
 
 /**
  * Provides Mock objects for testing
@@ -21,5 +24,10 @@ object TestMocks {
 
     fun provideMockDealWithoutSalePrice() = provideMockDeal().copy(
         salePrice = null
+    )
+
+    fun <T> provideErrorResponse(): Response<T> = Response.error<T>(
+        500,
+        "{}".toResponseBody("application/json".toMediaTypeOrNull())
     )
 }
