@@ -38,9 +38,7 @@ class HomeViewModel @Inject constructor(
             result.collect { apiResult ->
                 val (newState, effect) = reduce(viewState.value, apiResult)
                 updateViewState(newState)
-                if (effect != null) {
-                    sendEffect(effect)
-                }
+                sendEffect(effect)
             }
         }
     }
@@ -50,15 +48,16 @@ class HomeViewModel @Inject constructor(
      * @param oldViewState - old viewState to be updated
      * @param apiResult - result fetch from [dealRepository]
      */
-    private fun reduce(oldViewState: HomeUiState, apiResult: ApiResult<Products>): Pair<HomeUiState, HomeEffect?> {
+    private fun reduce(oldViewState: HomeUiState, apiResult: ApiResult<Products>): Pair<HomeUiState, HomeEffect> {
         return when(apiResult) {
             is ApiResult.Success<Products> -> {
-                if (!apiResult.data?.deals.isNullOrEmpty()) {
-                    val dealWithSales = apiResult.data?.deals?.filter {
+                val deals = apiResult.data?.deals
+                if (!deals.isNullOrEmpty()) {
+                    val dealWithSales = deals.filter {
                         it.salePrice != null
                     }
                     val newState = oldViewState.copy(
-                        deals = dealWithSales ?: listOf()
+                        deals = dealWithSales
                     )
                     Pair(newState, HomeEffect.Success)
                 } else {
