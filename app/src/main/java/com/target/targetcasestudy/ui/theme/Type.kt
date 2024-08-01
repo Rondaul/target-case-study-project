@@ -32,6 +32,10 @@ val Typography = Typography(
         fontSize = 18.sp,
         lineHeight = 24.sp
     ),
+    titleSmall = TextStyle(
+        fontWeight = FontWeight.Bold,
+        fontSize = 14.sp
+    ),
     labelSmall = TextStyle(
         fontSize = 12.sp,
         lineHeight = 16.sp
