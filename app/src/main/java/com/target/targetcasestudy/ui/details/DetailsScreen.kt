@@ -17,6 +17,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,11 +34,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -147,8 +146,7 @@ fun DetailsContent(
                         Text(
                             text = deal?.title ?: "",
                             color = Color.Black,
-                            fontSize = 18.sp,
-                            lineHeight = 24.sp
+                            style = MaterialTheme.typography.headlineSmall
                         )
                         Spacer(modifier = modifier.height(24.dp))
                         DealAmountAndStatus(
@@ -194,8 +192,7 @@ fun BottomAddToCardButton(modifier: Modifier = Modifier) {
             ) {
                 Text(
                     text = stringResource(R.string.add_to_cart),
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
+                    style = MaterialTheme.typography.titleMedium
                 )
             }
         }
@@ -229,16 +226,14 @@ fun ProductDetails(productDescription: String, modifier: Modifier = Modifier) {
         Column(modifier = modifier.padding(16.dp)) {
             Text(
                 text = stringResource(R.string.product_details),
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
+                style = MaterialTheme.typography.titleMedium,
                 color = colorResource(id = R.color.secondary_text_color)
             )
             Spacer(modifier = modifier.height(16.dp))
             Text(
                 text = productDescription,
                 color = colorResource(id = R.color.lighter_gray),
-                fontSize = 16.sp,
-                lineHeight = 20.sp
+                style = MaterialTheme.typography.bodyLarge
             )
         }
     }

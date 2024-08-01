@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -30,11 +31,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -170,21 +169,20 @@ fun DealInfo(deal: Deal, modifier: Modifier = Modifier) {
         Text(
             text = deal.title,
             color = Color.Black,
-            fontSize = 14.sp,
-            lineHeight = 20.sp
+            style = MaterialTheme.typography.bodyMedium
         )
         Spacer(modifier = modifier.height(8.dp))
         Row {
             Text(
                 text = deal.availability,
                 color = Green,
-                fontSize = 12.sp,
+                style = MaterialTheme.typography.labelSmall,
                 modifier = modifier.padding(end = 4.dp)
             )
             Text(
                 text = stringResource(R.string.in_aisle, deal.aisle),
                 color = Gray,
-                fontSize = 12.sp
+                style = MaterialTheme.typography.labelSmall
             )
 
         }
@@ -200,18 +198,17 @@ fun DealAmountAndStatus(salePrice: String, regularPrice: String, status: String,
         Text(
             text = salePrice,
             color = Red,
-            fontWeight = FontWeight.Bold,
-            fontSize = 21.sp,
+            style = MaterialTheme.typography.displaySmall,
             modifier = modifier.padding(end = 4.dp)
         )
         Text(
             text = stringResource(R.string.reg_price, regularPrice),
             color = colorResource(id = R.color.secondary_text_color),
-            fontSize = 12.sp,
-            modifier = modifier.offset(y = 2.dp)
+            style = MaterialTheme.typography.labelSmall,
+            modifier = modifier.offset(y = 7.dp)
         )
     }
-    Text(text = status, color = Gray, fontSize = 12.sp)
+    Text(text = status, color = Gray, style = MaterialTheme.typography.bodyMedium)
 }
 
 @Preview(showBackground = true, showSystemUi = true, device = Devices.PIXEL)
