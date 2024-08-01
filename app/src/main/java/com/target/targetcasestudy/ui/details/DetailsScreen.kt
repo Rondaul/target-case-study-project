@@ -228,7 +228,7 @@ fun ProductDetails(productDescription: String, modifier: Modifier = Modifier) {
     ) {
         Column(modifier = modifier.padding(16.dp)) {
             Text(
-                text = "Product Details",
+                text = stringResource(R.string.product_details),
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = colorResource(id = R.color.secondary_text_color)
