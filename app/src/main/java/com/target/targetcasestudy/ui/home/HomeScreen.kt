@@ -29,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -181,7 +182,7 @@ fun DealInfo(deal: Deal, modifier: Modifier = Modifier) {
                 modifier = modifier.padding(end = 4.dp)
             )
             Text(
-                text = "in aisle ${deal.aisle}",
+                text = stringResource(R.string.in_aisle, deal.aisle),
                 color = Gray,
                 fontSize = 12.sp
             )
@@ -204,7 +205,7 @@ fun DealAmountAndStatus(salePrice: String, regularPrice: String, status: String,
             modifier = modifier.padding(end = 4.dp)
         )
         Text(
-            text = "reg. $regularPrice",
+            text = stringResource(R.string.reg_price, regularPrice),
             color = colorResource(id = R.color.secondary_text_color),
             fontSize = 12.sp,
             modifier = modifier.offset(y = 2.dp)
