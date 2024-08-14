@@ -1,5 +1,7 @@
 package com.target.targetcasestudy.ui.home
 
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.target.targetcasestudy.api.ApiResult
 import com.target.targetcasestudy.data.Products
@@ -18,25 +20,55 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val dealRepository: DealRepository,
-    dispatcher: CoroutineDispatcher
+    dispatcher: CoroutineDispatcher,
+    private val savedStateHandle: SavedStateHandle = SavedStateHandle()
 ): BaseViewModel<HomeUiState, HomeEvent, HomeEffect>(HomeUiState.initial(), dispatcher) {
+
+    companion object {
+        const val API_CALL_KEY = "1"
+    }
+
+    var scrollPosition = mutableStateOf(0)
+
+    private fun setShouldCallApiState(shouldCallApi: Boolean) {
+        savedStateHandle[API_CALL_KEY] = shouldCallApi
+    }
+
+    private fun getShouldCallApiState(): Boolean {
+        return savedStateHandle[API_CALL_KEY] ?: true
+    }
 
     /**
      * Process event from [HomeScreen]
      */
     override fun processEvent(event: HomeEvent) = when (event) {
         is HomeEvent.RetrieveDeals -> retrieveDeals()
+        is HomeEvent.CheckLogin -> checkLogin(event.isLoginEnabled)
+    }
+
+    private fun checkLogin(loginEnabled: Boolean) {
+        sendEffect(HomeEffect.LoginResult(false))
+    }
+
+    fun saveScrollPosition(position: Int) {
+        scrollPosition.value = position
     }
 
     /**
      * Method to get the list of deal from [dealRepository]
      */
     private fun retrieveDeals()  {
+        val homeUiState = getShouldCallApiState()
+        if (!homeUiState) {
+            sendEffect(HomeEffect.Success)
+            return
+        }
         viewModelScope.launch(dispatcher) {
             sendEffect(HomeEffect.Loading)
             val result = dealRepository.retrieveDeals()
             result.collect { apiResult ->
                 val (newState, effect) = reduce(viewState.value, apiResult)
+                setShouldCallApiState(false)
                 updateViewState(newState)
                 sendEffect(effect)
             }

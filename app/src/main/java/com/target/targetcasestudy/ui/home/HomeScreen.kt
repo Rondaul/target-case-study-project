@@ -1,5 +1,6 @@
 package com.target.targetcasestudy.ui.home
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -28,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -62,6 +65,8 @@ fun HomeScreen(
     val homeEffect = rememberFlowWithLifecycle(flow = homeViewModel.viewEffects)
     var showProgress by remember { mutableStateOf(false) }
     var showErrorUI by remember { mutableStateOf(Pair("", false)) }
+    val localContext = LocalContext.current
+    val scrollPosition = homeViewModel.scrollPosition
 
     ComposableLifecycle { source, event ->
         if (event == Lifecycle.Event.ON_CREATE) {
@@ -78,9 +83,12 @@ fun HomeScreen(
                     showProgress = false
                     showErrorUI = Pair(effect.errorMsg, true)
                 }
-                HomeEffect.Success -> {
+                is HomeEffect.Success -> {
                     showProgress = false
                     showErrorUI = Pair("", false)
+                }
+                is HomeEffect.LoginResult -> {
+                    Toast.makeText(localContext, "You are not logged in!", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -93,7 +101,15 @@ fun HomeScreen(
             homeViewModel.sendEvent(HomeEvent.RetrieveDeals)
         }
     } else {
-        HomeContent(homeUiState, onDealItemClick, modifier)
+        HomeContent(homeUiState,
+            onDealItemClick = {
+            homeViewModel.sendEvent(HomeEvent.CheckLogin(true))
+        },
+            onSaveScrollPosition = { position: Int ->
+                homeViewModel.saveScrollPosition(position)
+            },
+            scrollPosition = scrollPosition.value,
+            modifier)
     }
 }
 
@@ -104,9 +120,17 @@ fun HomeScreen(
 fun HomeContent(
     homeUiState: State<HomeUiState>,
     onDealItemClick: (dealId: Int) -> Unit,
+    onSaveScrollPosition: (position: Int) -> Unit,
+    scrollPosition: Int,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
+    val scrollState = rememberLazyListState(initialFirstVisibleItemIndex = scrollPosition)
+
+    LaunchedEffect(Unit) {
+        onSaveScrollPosition(scrollState.firstVisibleItemIndex)
+    }
+
+    LazyColumn(state = scrollState, modifier = Modifier.fillMaxSize()) {
         items(homeUiState.value.deals) { deal ->
             DealItem(
                 deal = deal,

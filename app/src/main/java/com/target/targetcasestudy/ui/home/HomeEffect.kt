@@ -11,4 +11,5 @@ sealed class HomeEffect : Reducer.ViewEffect {
     data object Loading : HomeEffect()
     data class Error(val errorMsg: String) : HomeEffect()
     data object Success : HomeEffect()
+    data class LoginResult(val isSuccess: Boolean): HomeEffect()
 }

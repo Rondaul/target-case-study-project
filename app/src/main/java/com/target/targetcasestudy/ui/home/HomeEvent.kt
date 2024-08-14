@@ -9,4 +9,5 @@ import javax.annotation.concurrent.Immutable
 @Immutable
 sealed class HomeEvent : Reducer.ViewEvent {
     data object RetrieveDeals: HomeEvent()
+    data class CheckLogin(val isLoginEnabled: Boolean): HomeEvent()
 }
